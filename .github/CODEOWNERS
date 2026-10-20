@@ -1,0 +1,6 @@
+/tauceti.toml @kim-em
+/.github/ @kim-em
+/scripts/ @kim-em
+/lakefile.* @kim-em
+/lean-toolchain @kim-em
+/lake-manifest.json @kim-em
