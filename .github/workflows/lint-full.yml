@@ -54,10 +54,10 @@ jobs:
           fetch-depth: 100
 
       - name: Prepare pinned shared tools
-        uses: TauCetiProject/TauCetiTools/.github/actions/setup@fa64353b3ad400d8259fa6b98972db40a79d0490
+        uses: TauCetiProject/TauCetiTools/.github/actions/setup@7d562af7a59e3ed6a0a6f39c7f40abe21b5255f5
         with:
           tools-repository: TauCetiProject/TauCetiTools
-          tools-ref: fa64353b3ad400d8259fa6b98972db40a79d0490
+          tools-ref: 7d562af7a59e3ed6a0a6f39c7f40abe21b5255f5
           project-directory: .
       - name: Import-boundary guard (Arcturus/ and Arcturus.lean ⊬ roadmap/review)
         run: |

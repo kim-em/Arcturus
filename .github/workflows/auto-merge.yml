@@ -84,7 +84,7 @@ jobs:
     with:
       review_ref: 0675ebb9393129d6abd433109407a49fac8178d0
       tools_repository: TauCetiProject/TauCetiTools
-      tools_ref: fa64353b3ad400d8259fa6b98972db40a79d0490
+      tools_ref: 7d562af7a59e3ed6a0a6f39c7f40abe21b5255f5
       pr: ${{ needs.resolve.outputs.pr }}
       merge_backend: ${{ vars.MERGE_BACKEND || 'queue' }}
     # Pass only the App credentials merge-only needs, not all of Arcturus's secrets.
