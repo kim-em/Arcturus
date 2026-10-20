@@ -4,7 +4,7 @@ import Batteries.Tactic.Lint
 # `lint-env` driver: Mathlib's default environment linters, compiled
 
 Human-owned governance machinery, run by `scripts/lint-env.sh`. It does exactly what the
-generated `#lint only <linters> in TauCeti` driver used to do, and prints the same report in the
+generated `#lint only <linters> in Arcturus` driver used to do, and prints the same report in the
 same format, but as a compiled executable.
 
 It is faster because Batteries' lint framework and linters run natively; under `lean` they are
@@ -21,11 +21,11 @@ candidate code runs, and the executable is mounted read-only; see `lint-env.sh`.
 
 Usage: `lint-env-driver [--only-listed] <tag> <marker-file> <modules-file> <linter>...`
 
-* Imports every module listed (one per line) in `<modules-file>`. `importModules` loads the closure
+* Imports Mathlib's standard lint support and every project module listed in `<modules-file>`. `importModules` loads the closure
   at the `private` olean level, as the legacy (non-module) `#lint` driver did; see PRIVATE
   DECLARATIONS in `lint-env.sh`.
 * Runs exactly the named linters on the declarations of the `Arcturus` package, or, with
-  `--only-listed`, on just the declarations defined in the listed modules (the TauCeti modules
+  `--only-listed`, on just the declarations defined in the listed modules (the Arcturus modules
   they import are not linted). `lint-env.sh` uses that to lint only what a change touched.
 * Prints the report `#lint` would print. With violations, the header line carries the
   `<tag>:1:0: error: ` prefix that Lean gives an error diagnostic from a driver file named `<tag>`,
@@ -102,7 +102,8 @@ unsafe def main (args : List String) : IO UInt32 := do
   initSearchPath (← findSysroot)
   -- The legacy `#lint` driver ran imported initializers too (`lean` always does).
   enableInitializersExecution
-  let env ← importModules (modules.map ({ module := · })) {} (trustLevel := 1024)
+  let lintImports := #[`Mathlib.Init, `Mathlib.Tactic.SetNotationForOrder] ++ modules
+  let env ← importModules (lintImports.map ({ module := · })) {} (trustLevel := 1024)
     (loadExts := true)
   let opts : Options := ({} : Options).setBool `trace.Batteries.Lint true
   let ctx : Core.Context := { fileName := tag, fileMap := default, options := opts }

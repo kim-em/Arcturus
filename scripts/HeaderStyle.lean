@@ -48,7 +48,7 @@ def readCopyrightHeader (path : System.FilePath) : IO String :=
 code when the source list is empty or at least one file has a malformed header. -/
 unsafe def main (args : List String) : IO UInt32 := do
   if args.isEmpty then
-    IO.eprintln "header-style: received no validated TauCeti source files; the audit is miswired."
+    IO.eprintln "header-style: received no validated Arcturus source files; the audit is miswired."
     return 1
   let mut failures : UInt32 := 0
   for path in args do
@@ -60,5 +60,5 @@ unsafe def main (args : List String) : IO UInt32 := do
   if failures != 0 then
     IO.eprintln s!"header-style: {failures} source file(s) have malformed copyright headers."
   else
-    IO.eprintln s!"header-style: all {args.length} TauCeti source file(s) have conforming headers."
+    IO.eprintln s!"header-style: all {args.length} Arcturus source file(s) have conforming headers."
   return min failures 125

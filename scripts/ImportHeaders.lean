@@ -16,7 +16,7 @@ Mathlib.Lean implementation modules. Mathlib tactic imports remain allowed. Use 
 import is still rejected. No separate driver or narrower file inventory can drift from this one.
 
 The complete candidate inventory includes Arcturus.lean, orphan modules, and batch additions.
-Only imports rooted at TauCeti are checked for missing sources. External resolution and body
+Only imports rooted at Arcturus are checked for missing sources. External resolution and body
 validity remain the authoritative Lake build's responsibility; no external syntax or candidate
 code is loaded.
 -/
