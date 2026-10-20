@@ -26,7 +26,7 @@ open Lean
 /-- The library whose modules must opt into the module system (the AI-owned mathematics). -/
 def auditedRoot : Name := `Arcturus
 
-/-- The module name for a `.lean` source path, e.g. `Arcturus/Foo/Bar.lean ↦ TauCeti.Foo.Bar`. -/
+/-- The module name for a `.lean` source path, e.g. `Arcturus/Foo/Bar.lean ↦ Arcturus.Foo.Bar`. -/
 def pathToModule (p : System.FilePath) : Name :=
   (p.withExtension "").components.foldl (fun n s => Name.mkStr n s) Name.anonymous
 

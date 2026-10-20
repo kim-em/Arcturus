@@ -4,11 +4,11 @@ import Lean
 # Shared declaration-ownership and axiom audits
 
 `lake exe axioms` and the workflow-pinned native `audit-driver` reject declarations owned
-by two modules when at least one owner is in TauCeti, including compatible duplicate
+by two modules when at least one owner is in Arcturus, including compatible duplicate
 user theorems. Ownership comes from each module's `constNames`, before the axiom scan
 uses merged constants. Reserved auxiliaries with no explicit source declaration are exempt.
 
-Every TauCeti declaration must depend only on `propext`, `Classical.choice`, and `Quot.sound`.
+Every Arcturus declaration must depend only on `propext`, `Classical.choice`, and `Quot.sound`.
 This catches `sorry`/`admit`, native-decision axioms, and custom axioms, including private
 ones and dependencies reached through imports. Enumerating sources includes the empty
 root and orphan modules. `--duplicates-only` isolates the ownership fixtures.
@@ -34,7 +34,7 @@ def allowedAxioms : List Name := [``propext, ``Classical.choice, ``Quot.sound]
 /-- Is `mod` the audited library root or one of its submodules? -/
 def inAuditedLib (mod : Name) : Bool := mod == auditedRoot || auditedRoot.isPrefixOf mod
 
-/-- The module name for a `.lean` source path, e.g. `Arcturus/Foo/Bar.lean ↦ TauCeti.Foo.Bar`. -/
+/-- The module name for a `.lean` source path, e.g. `Arcturus/Foo/Bar.lean ↦ Arcturus.Foo.Bar`. -/
 def pathToModule (p : System.FilePath) : Name :=
   (p.withExtension "").components.foldl (fun n s => Name.mkStr n s) Name.anonymous
 
@@ -209,7 +209,7 @@ namespace DuplicateDeclarations
 All mmap-backed names stay inside `withImportModules`' callback. -/
 def check (env : Environment) (localModules : NameSet) : IO UInt32 := do
   let modules := env.allImportedModuleNames
-  -- Every violation involves a TauCeti-owned name. Index those names first, then compare
+  -- Every violation involves a Arcturus-owned name. Index those names first, then compare
   -- them against ALL modules, including dependencies; unrelated dependency names need no owner.
   let mut localNames : NameSet := {}
   for i in [:modules.size] do
@@ -246,7 +246,7 @@ def check (env : Environment) (localModules : NameSet) : IO UInt32 := do
   if bad != 0 then
     IO.eprintln "Keep one canonical declaration and import its module from the other files."
     return 1
-  IO.println s!"duplicate-declarations: checked {localModules.size} TauCeti modules and \
+  IO.println s!"duplicate-declarations: checked {localModules.size} Arcturus modules and \
     {modules.size - localModules.size} dependency modules; no duplicate declarations."
   return 0
 
@@ -343,7 +343,7 @@ def main (args : List String) : IO UInt32 := do
     initSearchPath (← findSysroot)
     let modules ← AxiomAudit.auditedModules
     if modules.size <= 1 then
-      throw <| IO.userError "duplicate-declarations: no TauCeti source modules found"
+      throw <| IO.userError "duplicate-declarations: no Arcturus source modules found"
     let localModules := modules.foldl (fun s n => s.insert n) ({} : NameSet)
     let only ← AxiomAudit.scope
     unsafe withImportModules (modules.map fun m => { module := m }) {}
