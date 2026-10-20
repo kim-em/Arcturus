@@ -15,10 +15,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: TauCetiProject/TauCetiTools/.github/actions/setup@591bb28366f86162e0001447687c0ac12d2675da
+      - uses: TauCetiProject/TauCetiTools/.github/actions/setup@d0c3c276c02e8430dce6e3243bade3770228564b
         with:
           tools-repository: TauCetiProject/TauCetiTools
-          tools-ref: 591bb28366f86162e0001447687c0ac12d2675da
+          tools-ref: d0c3c276c02e8430dce6e3243bade3770228564b
       - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf
         id: app
         with:

@@ -88,10 +88,10 @@ jobs:
           sparse-checkout: scripts/pr_status
           persist-credentials: false
       - name: Prepare pinned shared tools
-        uses: TauCetiProject/TauCetiTools/.github/actions/setup@591bb28366f86162e0001447687c0ac12d2675da
+        uses: TauCetiProject/TauCetiTools/.github/actions/setup@d0c3c276c02e8430dce6e3243bade3770228564b
         with:
           tools-repository: TauCetiProject/TauCetiTools
-          tools-ref: 591bb28366f86162e0001447687c0ac12d2675da
+          tools-ref: d0c3c276c02e8430dce6e3243bade3770228564b
           project-directory: .
       - name: Label conflicting PRs
         env:
