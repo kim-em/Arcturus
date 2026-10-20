@@ -5,4 +5,8 @@ Authors: Kim Morrison
 -/
 module
 
--- Add source only after a human supplies the corresponding roadmap target.
+/-!
+# Arcturus starter
+
+This module contains no mathematical declarations.
+-/
