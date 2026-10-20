@@ -1,0 +1,81 @@
+# Canonical, human-owned project configuration. No credentials belong here.
+schema_version = 1
+
+[project]
+name = "Arcturus"
+branch = "main"
+codeowners = ["@kim-em"]
+
+[repositories]
+content = "kim-em/Arcturus"
+roadmap = "kim-em/ArcturusRoadmap"
+review = "TauCetiProject/TauCetiReview"
+# Enable and create these repositories when choosing the corresponding extras.
+# data = "kim-em/ArcturusData"
+# ci = "kim-em/ArcturusCI"
+# claims = "kim-em/Arcturus-claims"
+
+[lean]
+roots = ["Arcturus"]
+root_module = "empty"
+
+[roadmap]
+active_dir = "ArcturusRoadmap"
+completed_dir = "Completed"
+
+[merge]
+backend = "github-direct"
+checks = ["build", "bump-guard", "scope"]
+
+[[upstreams]]
+repo = "leanprover-community/mathlib4"
+package = "mathlib"
+branch = "master"
+update = true
+overlap = true
+upstream_destination = true
+
+# Everything below is optional. Run doctor --extras to continue beyond core.
+[features]
+archives = false
+ci_archive = false
+claims = false
+docs = false
+progress = false
+zulip = false
+fleet = false
+security_audit = false
+
+[services.github_state]
+mode = "off" # off | hosted | custom
+# url = "https://github-state.example.org"
+
+[services.bors]
+mode = "off" # hosted supplies Neon only; YOU operate the runtime
+deployment = "docker" # docker | cloudflare
+# url = "https://bors.example.org"
+# image = "ghcr.io/taucetiproject/bors-ng@sha256:SELECT_RELEASE_DIGEST"
+
+[services.cache]
+mode = "off"
+# name = "arcturus-public"
+# artifact_url = "https://cache.example.org/artifacts"
+# revision_url = "https://cache.example.org/revisions"
+
+[publication]
+# docs_url = "https://kim-em.github.io/Arcturus/docs"
+# zulip_site = "https://leanprover.zulipchat.com"
+# zulip_channel = "Project channel"
+# zulip_topic = "Progress logs"
+
+[tools.tools]
+repo="TauCetiProject/TauCetiTools"
+ref="8baa7789bb91e9a70cb2b3f5456f13554564e653"
+
+[tools.review]
+repo="TauCetiProject/TauCetiReview"
+ref="0675ebb9393129d6abd433109407a49fac8178d0"
+
+[tools.progress]
+repo="TauCetiProject/TauCetiProgress"
+ref="5e6625a243df7d3711623661a72f39c8afa58a07"
