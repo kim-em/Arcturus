@@ -46,7 +46,7 @@ jobs:
     with:
       review_ref: 0675ebb9393129d6abd433109407a49fac8178d0
       tools_repository: TauCetiProject/TauCetiTools
-      tools_ref: 591bb28366f86162e0001447687c0ac12d2675da
+      tools_ref: d0c3c276c02e8430dce6e3243bade3770228564b
       dry_run: ${{ inputs.dry-run || false }}
       focused: ${{ github.event_name == 'repository_dispatch' || (github.event_name == 'workflow_dispatch' && !inputs.full-scan) }}
     secrets:

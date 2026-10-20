@@ -1,7 +1,7 @@
 name: Daily full lint
 
 # The daily full environment lint. PR builds, the merge queue and post-merge CI lint only the
-# TauCeti modules a change touches (scripts/lint-scope.sh), so a change that breaks lint somewhere
+# Arcturus modules a change touches (scripts/lint-scope.sh), so a change that breaks lint somewhere
 # else lands on main. This finds it: it lints the whole library at main's tip and, if there are
 # violations not in the grandfathered baseline, opens a repair PR on `lint-repair/main`. That PR
 # starts as an empty commit labelled `full-lint`, so its pr-build is the full lint and shows what
@@ -46,7 +46,7 @@ jobs:
           [ "$now" -ge "$target" ] || echo "::warning::vm.max_map_count is $now, below $target"
       - uses: actions/checkout@v4
         with:
-          # As in ci.yml: this job runs TauCeti code, so keep GITHUB_TOKEN out of .git/config.
+          # As in ci.yml: this job runs Arcturus code, so keep GITHUB_TOKEN out of .git/config.
           persist-credentials: false
           # Enough history for `lake cache get` to backtrack to a recently-published
           # ancestor commit (its `--max-revs`) when the tip itself has no mapping yet.
@@ -54,10 +54,10 @@ jobs:
           fetch-depth: 100
 
       - name: Prepare pinned shared tools
-        uses: TauCetiProject/TauCetiTools/.github/actions/setup@591bb28366f86162e0001447687c0ac12d2675da
+        uses: TauCetiProject/TauCetiTools/.github/actions/setup@d0c3c276c02e8430dce6e3243bade3770228564b
         with:
           tools-repository: TauCetiProject/TauCetiTools
-          tools-ref: 591bb28366f86162e0001447687c0ac12d2675da
+          tools-ref: d0c3c276c02e8430dce6e3243bade3770228564b
           project-directory: .
       - name: Import-boundary guard (Arcturus/ and Arcturus.lean ⊬ roadmap/review)
         run: |
@@ -119,7 +119,7 @@ jobs:
           fi
 
       # --- Lake artifact-cache restore (dormant until configured) --------------------
-      # Restore TauCeti's OWN oleans before building, exactly as pr-build.yml does. Without
+      # Restore Arcturus's OWN oleans before building, exactly as pr-build.yml does. Without
       # this, the post-merge run recompiled the whole library from scratch on every push,
       # spending about 49 minutes to reproduce oleans the merge-queue build had produced
       # minutes earlier. Because the publisher is serialized, that capped publication at
@@ -139,7 +139,7 @@ jobs:
               echo "LAKE_RESTORE_ARTIFACTS=true"
               echo "TAUCETI_CACHE_ENABLED=1"
             } >> "$GITHUB_ENV"
-            echo "::notice::Lake artifact cache enabled — restoring TauCeti's oleans and building incrementally"
+            echo "::notice::Lake artifact cache enabled — restoring Arcturus's oleans and building incrementally"
           else
             echo "::notice::Lake artifact cache not configured — building Arcturus/ from scratch (set the LAKE_CACHE_*_PUBLIC repo variables to enable)"
           fi
@@ -158,7 +158,7 @@ jobs:
       # the same commit. That is a detector, not an equivalent guarantee, and its own header spells
       # out the exposure window it leaves. The two are a pair; do not enable this restore without
       # that nightly running.
-      - name: Fetch TauCeti's own oleans from the Lake cache
+      - name: Fetch Arcturus's own oleans from the Lake cache
         if: ${{ env.TAUCETI_CACHE_ENABLED == '1' }}
         env:
           # Passed under non-LAKE_ names so Lake never sees the deprecated endpoint

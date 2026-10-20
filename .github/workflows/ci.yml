@@ -54,7 +54,7 @@ jobs:
           [ "$now" -ge "$target" ] || echo "::warning::vm.max_map_count is $now, below $target"
       - uses: actions/checkout@v4
         with:
-          # This job elaborates every TauCeti module, and Lean runs code at elaboration time.
+          # This job elaborates every Arcturus module, and Lean runs code at elaboration time.
           # Without this, checkout leaves an http.extraheader carrying GITHUB_TOKEN in the
           # workspace .git/config for the whole job, within reach of that code. Nothing here
           # needs it: no step calls the GitHub API or pushes, `lake exe cache get` talks to
@@ -67,10 +67,10 @@ jobs:
           fetch-depth: 0
 
       - name: Prepare pinned shared tools
-        uses: TauCetiProject/TauCetiTools/.github/actions/setup@591bb28366f86162e0001447687c0ac12d2675da
+        uses: TauCetiProject/TauCetiTools/.github/actions/setup@d0c3c276c02e8430dce6e3243bade3770228564b
         with:
           tools-repository: TauCetiProject/TauCetiTools
-          tools-ref: 591bb28366f86162e0001447687c0ac12d2675da
+          tools-ref: d0c3c276c02e8430dce6e3243bade3770228564b
           project-directory: .
       - name: Import-boundary guard (Arcturus/ and Arcturus.lean ⊬ roadmap/review)
         run: |
@@ -131,7 +131,7 @@ jobs:
             lake exe cache get!
           fi
 
-      # Publish only official Mathlib downloads before TauCeti source executes, so a cold
+      # Publish only official Mathlib downloads before Arcturus source executes, so a cold
       # root compilation cannot delay warming for other jobs. PR builds remain restore-only.
       # GitHub cache keys are immutable; an exact restore needs no redundant save, while a
       # prefix restore is extended with the newly downloaded hashes under the exact current key.
@@ -153,7 +153,7 @@ jobs:
           key: ${{ steps.mathlib_ltar_restore.outputs.cache-primary-key }}
 
       # --- Lake artifact-cache restore (dormant until configured) --------------------
-      # Restore TauCeti's OWN oleans before building, exactly as pr-build.yml does. Without
+      # Restore Arcturus's OWN oleans before building, exactly as pr-build.yml does. Without
       # this, the post-merge run recompiled the whole library from scratch on every push,
       # spending about 49 minutes to reproduce oleans the merge-queue build had produced
       # minutes earlier. Because the publisher is serialized, that capped publication at
@@ -173,7 +173,7 @@ jobs:
               echo "LAKE_RESTORE_ARTIFACTS=true"
               echo "TAUCETI_CACHE_ENABLED=1"
             } >> "$GITHUB_ENV"
-            echo "::notice::Lake artifact cache enabled — restoring TauCeti's oleans and building incrementally"
+            echo "::notice::Lake artifact cache enabled — restoring Arcturus's oleans and building incrementally"
           else
             echo "::notice::Lake artifact cache not configured — building Arcturus/ from scratch (set the LAKE_CACHE_*_PUBLIC repo variables to enable)"
           fi
@@ -192,7 +192,7 @@ jobs:
       # the same commit. That is a detector, not an equivalent guarantee, and its own header spells
       # out the exposure window it leaves. The two are a pair; do not enable this restore without
       # that nightly running.
-      - name: Fetch TauCeti's own oleans from the Lake cache
+      - name: Fetch Arcturus's own oleans from the Lake cache
         if: ${{ env.TAUCETI_CACHE_ENABLED == '1' }}
         env:
           # Passed under non-LAKE_ names so Lake never sees the deprecated endpoint
@@ -225,7 +225,7 @@ jobs:
           lake env "$RUNNER_TEMP/audit-driver/audit-driver"
 
       # Read compiled module flags with the canonical direct-artifact checker.
-      - name: Module-system audit (every TauCeti file opts into module)
+      - name: Module-system audit (every Arcturus file opts into module)
         env:
           LAKE_NO_CACHE: "true"
         run: lake exe module-system
@@ -241,7 +241,7 @@ jobs:
       # PR-time enforcement runs inside the
       # bwrap sandbox in pr-build.yml (this lint executes the linted code); this
       # post-merge run is the health check on main, like the audits above.
-      # Like PR builds and the merge queue, this lints only the TauCeti modules the push changed
+      # Like PR builds and the merge queue, this lints only the Arcturus modules the push changed
       # (the whole library if a merged PR was labelled full-lint or was a lint repair PR); the
       # daily lint-full.yml run lints everything. Superseded runs of this workflow are cancelled,
       # so a push's scope can be skipped here, but its merge group already linted it.
@@ -272,7 +272,7 @@ jobs:
         run: bash scripts/lint-style.sh
 
       # --- Lake artifact-cache publish (dormant until configured) ---------------------
-      # Publish TauCeti's OWN oleans (root-package only) to the Lake cache, so pr-build can
+      # Publish Arcturus's OWN oleans (root-package only) to the Lake cache, so pr-build can
       # fetch them and recompile only a PR's changed modules instead of the whole library.
       # Mathlib's oleans are never uploaded: `-o` records only root-package outputs, and
       # Mathlib stays on `lake exe cache get`. See pr-build.yml for the consuming side.
@@ -300,7 +300,7 @@ jobs:
         run: |
           if [ -n "$S3_ARTIFACT_ENDPOINT" ] && [ -n "$S3_REVISION_ENDPOINT" ]; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
-            echo "::notice::Lake cache upload configured; staging TauCeti's oleans"
+            echo "::notice::Lake cache upload configured; staging Arcturus's oleans"
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
             echo "::notice::Lake cache upload not configured, skipping (set the LAKE_CACHE_ARTIFACT_ENDPOINT / LAKE_CACHE_REVISION_ENDPOINT repo variables and the LAKE_CACHE_KEY secret to enable)"
@@ -328,7 +328,7 @@ jobs:
             echo "::notice::Exact Lake cache map is absent or unreadable; retaining main's publication fallback"
           fi
 
-      - name: Stage TauCeti's oleans for the publish job
+      - name: Stage Arcturus's oleans for the publish job
         id: stage
         if: ${{ steps.cachecfg.outputs.enabled == 'true' && steps.exact_cache.outputs.exists != 'true' }}
         env:
@@ -410,7 +410,7 @@ jobs:
     uses: ./.github/workflows/publish-lake-cache.yml
     with:
       tools_repository: TauCetiProject/TauCetiTools
-      tools_ref: 591bb28366f86162e0001447687c0ac12d2675da
+      tools_ref: d0c3c276c02e8430dce6e3243bade3770228564b
       revision: ${{ github.sha }}
       artifact-name: lake-cache-staging
       reported-toolchain: ${{ needs.build.outputs.reported-toolchain }}
