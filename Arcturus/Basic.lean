@@ -8,6 +8,5 @@ module
 /-!
 # Arcturus starter
 
-This module contains no mathematical declarations. Human-owned targets in
-ArcturusRoadmap determine which definitions and theorems belong in the library.
+This module contains no mathematical declarations.
 -/
