@@ -74,10 +74,10 @@ jobs:
           persist-credentials: false
 
       - name: Prepare pinned shared tools
-        uses: TauCetiProject/TauCetiTools/.github/actions/setup@8baa7789bb91e9a70cb2b3f5456f13554564e653
+        uses: TauCetiProject/TauCetiTools/.github/actions/setup@ff4f15e090f26a319df5fc6adae2eee8860dab81
         with:
           tools-repository: TauCetiProject/TauCetiTools
-          tools-ref: 8baa7789bb91e9a70cb2b3f5456f13554564e653
+          tools-ref: ff4f15e090f26a319df5fc6adae2eee8860dab81
           project-directory: .
       - name: Check out workflow-pinned publication planning tools
         uses: actions/checkout@v4
