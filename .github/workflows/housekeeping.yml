@@ -43,10 +43,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Prepare pinned shared tools
-        uses: TauCetiProject/TauCetiTools/.github/actions/setup@8baa7789bb91e9a70cb2b3f5456f13554564e653
+        uses: TauCetiProject/TauCetiTools/.github/actions/setup@0d9416919c64ee27182a1aed1507a1746d920360
         with:
           tools-repository: TauCetiProject/TauCetiTools
-          tools-ref: 8baa7789bb91e9a70cb2b3f5456f13554564e653
+          tools-ref: 0d9416919c64ee27182a1aed1507a1746d920360
           project-directory: .
       - name: Abandon stuck PRs and close duplicates
         env:
