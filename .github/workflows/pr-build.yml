@@ -25,11 +25,11 @@ permissions:
   actions: read
 jobs:
   validate:
-    uses: TauCetiProject/TauCetiTools/.github/workflows/pr-build.yml@fa64353b3ad400d8259fa6b98972db40a79d0490
+    uses: TauCetiProject/TauCetiTools/.github/workflows/pr-build.yml@495bed3fedf58826a0ef12e856cc12e16730c8b0
     with:
       pr: ${{ inputs.pr || '' }}
       tools_repository: TauCetiProject/TauCetiTools
-      tools_ref: fa64353b3ad400d8259fa6b98972db40a79d0490
+      tools_ref: 495bed3fedf58826a0ef12e856cc12e16730c8b0
       project_ref: ${{ github.workflow_sha }}
       lean_root: Arcturus
       roadmap_dir: ArcturusRoadmap

@@ -40,18 +40,18 @@ upstream_destination = true
 archives = false
 ci_archive = false
 claims = false
-docs = false
-progress = false
+docs = true
+progress = true
 zulip = false
 fleet = false
 security_audit = false
 
 [services.github_state]
-mode = "off" # off | hosted | custom
-# url = "https://github-state.example.org"
+mode = "hosted"
+url = "https://github-state.taucetiproject.org"
 
 [services.bors]
-mode = "off" # hosted supplies Neon only; YOU operate the runtime
+mode = "hosted" # managed Neon database; the project still operates Bors
 deployment = "docker" # docker | cloudflare
 # url = "https://bors.example.org"
 # image = "ghcr.io/taucetiproject/bors-ng@sha256:SELECT_RELEASE_DIGEST"
@@ -63,14 +63,14 @@ mode = "off"
 # revision_url = "https://cache.example.org/revisions"
 
 [publication]
-# docs_url = "https://kim-em.github.io/Arcturus/docs"
+docs_url = "https://kim-em.github.io/Arcturus/docs"
 # zulip_site = "https://leanprover.zulipchat.com"
 # zulip_channel = "Project channel"
 # zulip_topic = "Progress logs"
 
 [tools.tools]
 repo="TauCetiProject/TauCetiTools"
-ref="fa64353b3ad400d8259fa6b98972db40a79d0490"
+ref="495bed3fedf58826a0ef12e856cc12e16730c8b0"
 
 [tools.review]
 repo="TauCetiProject/TauCetiReview"
@@ -79,3 +79,7 @@ ref="0675ebb9393129d6abd433109407a49fac8178d0"
 [tools.progress]
 repo="TauCetiProject/TauCetiProgress"
 ref="5e6625a243df7d3711623661a72f39c8afa58a07"
+
+[tools.docgen]
+repo = "kim-em/doc-gen4"
+ref = "57d77ca3543b96fbfe364b9ea4446fb5939d16c2"

@@ -2,3 +2,4 @@
 .tauceti-tools/
 .tauceti-trusted-scripts/
 __pycache__/
+/docbuild/
