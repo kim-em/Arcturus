@@ -78,7 +78,7 @@ ref="0675ebb9393129d6abd433109407a49fac8178d0"
 
 [tools.progress]
 repo="TauCetiProject/TauCetiProgress"
-ref="5e6625a243df7d3711623661a72f39c8afa58a07"
+ref = "ea2f8a20917f33063d00b151846f37526b71600f"
 
 [tools.docgen]
 repo = "kim-em/doc-gen4"
