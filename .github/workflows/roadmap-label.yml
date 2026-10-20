@@ -65,10 +65,10 @@ jobs:
       # The roadmap repo supplies the canonical area set (the source of truth for which
       # roadmap/<Area> labels are legitimate).
       - name: Prepare pinned shared tools
-        uses: TauCetiProject/TauCetiTools/.github/actions/setup@ff4f15e090f26a319df5fc6adae2eee8860dab81
+        uses: TauCetiProject/TauCetiTools/.github/actions/setup@591bb28366f86162e0001447687c0ac12d2675da
         with:
           tools-repository: TauCetiProject/TauCetiTools
-          tools-ref: ff4f15e090f26a319df5fc6adae2eee8860dab81
+          tools-ref: 591bb28366f86162e0001447687c0ac12d2675da
           project-directory: .
       - uses: actions/checkout@v4
         with:
