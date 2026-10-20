@@ -1,0 +1,4 @@
+.lake/
+.tauceti-tools/
+.tauceti-trusted-scripts/
+__pycache__/
